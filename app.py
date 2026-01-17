@@ -7,24 +7,24 @@ from datetime import datetime
 from pymongo import MongoClient
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # Needed for login sessions
+app.secret_key = "supersecretkey"  #  for login sessions
 
-# --- CONFIGURATION ---
+# configuration
 IMAGE_FOLDER = 'images'
 ADMIN_EMAIL = "admin@kdu.ac.lk"
 ADMIN_PASSWORD = "123"  # Simple hardcoded password for now
 
-# --- MONGODB CONNECTION ---
+# mongodb connection
 client = MongoClient("mongodb://localhost:27017/")
 db = client['attendance_db']  # Create a database named 'attendance_db'
 attendance_collection = db['logs']  # Collection for logs
 
-# Global variables
+# global variables
 camera = None
 known_face_encodings = []
 known_face_names = []
 
-# --- LOAD FACES FUNCTION ---
+# load faces function
 def load_known_faces():
     global known_face_encodings, known_face_names
     known_face_encodings = []
@@ -45,14 +45,14 @@ def load_known_faces():
         try:
             encoding = face_recognition.face_encodings(img)[0]
             known_face_encodings.append(encoding)
-            # Filename "Theekshana_001.jpg" -> Name "Theekshana_001"
+            # Filename changes
             known_face_names.append(os.path.splitext(filename)[0])
         except IndexError:
             print(f"[WARN] No face found in {filename}")
             
 load_known_faces()
 
-# --- CAMERA GENERATOR ---
+# camera generator
 def gen_frames(is_registering=False, new_name=""):
     global camera
     camera = cv2.VideoCapture(0)
@@ -63,12 +63,12 @@ def gen_frames(is_registering=False, new_name=""):
             break
             
         if not is_registering:
-            # --- VERIFICATION MODE ---
-            # 1. Resize for speed
+            # verification
+            # Resize for speed
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
             rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
             
-            # 2. Find faces
+            # Find faces
             face_locations = face_recognition.face_locations(rgb_small_frame)
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
             
@@ -84,14 +84,13 @@ def gen_frames(is_registering=False, new_name=""):
                         name = known_face_names[best_match_index].upper()
                         color = (0, 255, 0) # Green for match
                         
-                        # --- MONGODB LOGGING ---
-                        # Check if we already logged this person in the last minute (Prevent spam)
-                        # For simplicity: Just log it.
+                        # mongodb logging
+                       
                         log_entry = {
                             "name": name,
                             "timestamp": datetime.now()
                         }
-                        # Only insert if not logged in the last 60 seconds (Session logic)
+                        # Only insert if not logged in the last 60 seconds 
                         last_log = attendance_collection.find_one(
                             {"name": name}, 
                             sort=[("timestamp", -1)]
@@ -114,7 +113,7 @@ def gen_frames(is_registering=False, new_name=""):
                 cv2.putText(frame, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), 1)
 
         else:
-            # --- REGISTRATION MODE ---
+            # registration mode
             # Just show the raw camera so the user can position themselves
             cv2.putText(frame, "Position Face & Click Capture", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
 
@@ -124,7 +123,7 @@ def gen_frames(is_registering=False, new_name=""):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-# --- ROUTES ---
+# routes
 
 @app.route('/')
 def index():
@@ -136,7 +135,7 @@ def verify_feed():
 
 @app.route('/verify')
 def verify():
-    return render_template('verify.html') # We will create this simply
+    return render_template('verify.html') 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -159,7 +158,7 @@ def register_feed():
 
 @app.route('/capture_face', methods=['POST'])
 def capture_face():
-    # This captures the CURRENT frame from the camera
+    # This captures the current frame from the camera
     name = request.form['student_name']
     s_id = request.form['student_id']
     
@@ -178,10 +177,10 @@ def capture_face():
 
 @app.route('/dashboard')
 def dashboard():
-    # 1. Fetch all logs from MongoDB, sorted by newest first
+    #  Fetch all logs from MongoDB, sorted by newest first
     logs = attendance_collection.find().sort("timestamp", -1)
     
-    # 2. Send them to the HTML page
+    # Send them to the HTML page
     return render_template('dashboard.html', logs=logs)
 
 if __name__ == '__main__':
