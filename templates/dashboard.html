@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="navbar"><h1>Real-Time Logs</h1></div>
+
+    <div class="card card-wide">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td><b>{{ log.name }}</b></td>
+                    <td>
+                        {% if log.timestamp %}
+                            {{ log.timestamp.strftime('%Y-%m-%d') }}
+                        {% else %} - {% endif %}
+                    </td>
+                    <td>
+                        {% if log.timestamp %}
+                            {{ log.timestamp.strftime('%H:%M:%S') }}
+                        {% else %} - {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <a href="/" class="btn btn-secondary">Back to Home</a>
+    </div>
+</body>
+</html>

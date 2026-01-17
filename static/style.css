@@ -1,0 +1,90 @@
+/* GLOBAL STYLES */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1, h2, h3 { color: #1a1a1a; margin-bottom: 20px; }
+
+/* NAV BAR */
+.navbar {
+    width: 100%;
+    background-color: #0056b3;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 40px;
+}
+.navbar h1 { margin: 0; color: white; font-size: 24px; }
+
+/* CARDS (The white boxes) */
+.card {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 500px; /* Default width for login/home */
+    margin-bottom: 30px;
+}
+
+/* WIDER CARD (For Dashboard & Register) */
+.card-wide {
+    max-width: 1000px;
+}
+
+/* BUTTONS */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    margin: 10px;
+}
+
+.btn-primary { background-color: #007bff; color: white; }
+.btn-primary:hover { background-color: #0056b3; transform: translateY(-2px); }
+
+.btn-success { background-color: #28a745; color: white; }
+.btn-success:hover { background-color: #218838; transform: translateY(-2px); }
+
+.btn-secondary { background-color: #6c757d; color: white; }
+.btn-secondary:hover { background-color: #545b62; }
+
+/* FORMS */
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box; /* Fixes padding issues */
+}
+
+/* TABLES (Dashboard) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th { background-color: #007bff; color: white; padding: 15px; }
+td { padding: 12px; border-bottom: 1px solid #eee; }
+tr:hover { background-color: #f8f9fa; }
+
+/* VIDEO FEED */
+.video-feed {
+    border-radius: 8px;
+    border: 4px solid #333;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    max-width: 100%;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register New Student</title>
+    <style>body { text-align: center; font-family: sans-serif; }</style>
+</head>
+<body>
+    <h2>Register New Student</h2>
+    
+    <div style="display: flex; justify-content: center;">
+        <img src="{{ url_for('register_feed') }}" width="640" height="480" style="border: 5px solid blue; margin-right: 20px;">
+        
+        <form action="/capture_face" method="POST" style="text-align: left;">
+            <label>Student Name:</label><br>
+            <input type="text" name="student_name" required><br><br>
+            
+            <label>Student ID:</label><br>
+            <input type="text" name="student_id" required><br><br>
+            
+            <button type="submit" style="padding: 10px 20px; background: blue; color: white; font-size: 16px;">Capture & Save</button>
+        </form>
+    </div>
+</body>
+</html>
