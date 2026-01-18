@@ -5,91 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance System</title>
     <style>
-        /* home page css */
+        /* 1. General Layout & Background */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            
+            /* Background Image Setup */
+            background-image: url("{{ url_for('static', filename='background.png') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* 2. Main Title Styling */
+        h1.main-title {
+            color: white;
+            margin-bottom: 40px;
+            font-size: 42px;
+            font-weight: 700;
+            text-align: center;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Adds readability over any image */
+        }
+
+        .courses-container {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            gap: 30px; 
+            flex-wrap: wrap; 
+            max-width: 1200px;
+            width: 100%;
         }
 
-        .home-container {
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        /* 3. The Glass Card Effect */
+        .card {
+            /* Semi-transparent background */
+            background: rgba(255, 255, 255, 0.15); 
+            
+            /* The blur effect behind the card */
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); /* For Safari */
+            
+            /* Thin white border for the 'glass edge' look */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            
+            /* Shadow to lift it off the background */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            
+            padding: 40px;
+            border-radius: 24px;
             text-align: center;
-            max-width: 400px;
-            width: 90%;
+            width: 300px;
+            transition: transform 0.3s ease, background 0.3s;
         }
 
-        .home-container h1 {
-            color: #0056b3;
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.25); /* Light up slightly on hover */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .card h2 {
+            color: white;
             margin-bottom: 10px;
-            font-size: 28px;
+            font-size: 26px;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        .home-container p {
-            color: #666;
+        .card p {
+            color: rgba(255, 255, 255, 0.9); /* Slightly faded white */
             margin-bottom: 30px;
-            font-size: 16px;
+            font-size: 15px;
         }
 
+        /* 4. Glassy Buttons */
         .btn {
             display: block;
             width: 100%;
-            padding: 15px 0;
-            margin: 15px 0;
-            font-size: 18px;
+            padding: 14px 0;
+            margin: 12px 0;
+            font-size: 16px;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-weight: 500;
-            box-sizing: border-box; /* padding */
+            border-radius: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: scale(1.02);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
         }
 
-        /* green attendance button */
+        /* Gradient colors with transparency */
         .btn-verify {
-            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.85) 0%, rgba(33, 136, 56, 0.95) 100%);
         }
 
-        /* blue verify button*/
         .btn-admin {
-            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.85) 0%, rgba(0, 86, 179, 0.95) 100%);
         }
 
-        /* gray button */
         .btn-logs {
-            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            background: linear-gradient(135deg, rgba(108, 117, 125, 0.85) 0%, rgba(73, 80, 87, 0.95) 100%);
         }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #aaa;
-        }
     </style>
 </head>
 <body>
 
-    <div class="home-container">
-        <h1>Attendance System</h1>
-        <p>Select an option to proceed</p>
-        
-        <a href="/verify" class="btn btn-verify">Mark Attendance</a>
-        <a href="/login" class="btn btn-admin">Admin Login</a>
-        <a href="/dashboard" class="btn btn-logs">View Logs</a>
+    <h1 class="main-title">Select Your Course</h1>
 
-        
+    <div class="courses-container">
+
+        <div class="card">
+            <h2>Python Development</h2>
+            <p>Manage attendance for Python class</p>
+            
+            <a href="/verify?subject=Python" class="btn btn-verify">Mark Attendance</a>
+            <a href="/login?subject=Python" class="btn btn-admin">Admin Login</a>
+            <a href="/dashboard?subject=Python" class="btn btn-logs">View Logs</a>
+        </div>
+
+        <div class="card">
+            <h2>Web Design</h2>
+            <p>Manage attendance for Web Design</p>
+
+            <a href="/verify?subject=WebDesign" class="btn btn-verify">Mark Attendance</a>
+            <a href="/login?subject=WebDesign" class="btn btn-admin">Admin Login</a>
+            <a href="/dashboard?subject=WebDesign" class="btn btn-logs">View Logs</a>
+        </div>
+
+        <div class="card">
+            <h2>Data Science</h2>
+            <p>Manage attendance for Data Science</p>
+
+            <a href="/verify?subject=DataScience" class="btn btn-verify">Mark Attendance</a>
+            <a href="/login?subject=DataScience" class="btn btn-admin">Admin Login</a>
+            <a href="/dashboard?subject=DataScience" class="btn btn-logs">View Logs</a>
+        </div>
+
     </div>
 
 </body>

@@ -1,41 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Attendance Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Logs</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th { background-color: #007bff; color: white; }
+        tr:hover { background-color: #f1f1f1; }
+        .tag {
+            background: #eee;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar"><h1>Real-Time Logs</h1></div>
 
-    <div class="card card-wide">
+    <div class="container">
+        <h1>Attendance Logs</h1>
+        {% if subject %}
+            <p>Showing logs for: <span style="color:#007bff; font-weight:bold;">{{ subject }}</span></p>
+        {% else %}
+            <p>Showing all logs</p>
+        {% endif %}
+
         <table>
             <thead>
                 <tr>
-                    <th>Student Name</th>
-                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Subject</th>
                     <th>Time</th>
+                    <th>Date</th>
                 </tr>
             </thead>
             <tbody>
                 {% for log in logs %}
                 <tr>
-                    <td><b>{{ log.name }}</b></td>
-                    <td>
-                        {% if log.timestamp %}
-                            {{ log.timestamp.strftime('%Y-%m-%d') }}
-                        {% else %} - {% endif %}
-                    </td>
-                    <td>
-                        {% if log.timestamp %}
-                            {{ log.timestamp.strftime('%H:%M:%S') }}
-                        {% else %} - {% endif %}
-                    </td>
+                    <td><strong>{{ log.name }}</strong></td>
+                    <td><span class="tag">{{ log.subject }}</span></td>
+                    <td>{{ log.timestamp.strftime('%H:%M:%S') }}</td>
+                    <td>{{ log.timestamp.strftime('%Y-%m-%d') }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
         <br>
-        <a href="/" class="btn btn-secondary">Back to Home</a>
+        <a href="/" style="text-decoration:none; color:#007bff;">&larr; Back to Home</a>
     </div>
+
 </body>
 </html>
