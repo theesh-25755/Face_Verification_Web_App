@@ -51,9 +51,8 @@ def load_known_faces():
             
 load_known_faces()
 
-# -----------------------------------------------------------
-# UPDATED CAMERA GENERATOR (Now handles Subject)
-# -----------------------------------------------------------
+# updated camera generator.
+
 def gen_frames(is_registering=False, new_name="", subject="General"):
     global camera
     camera = cv2.VideoCapture(0)
@@ -83,7 +82,7 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
                         name = known_face_names[best_match_index].upper()
                         color = (0, 255, 0)
                         
-                        # --- MONGODB LOGGING (UPDATED) ---
+                        # mongodb login
                         log_entry = {
                             "name": name,
                             "timestamp": datetime.now(),
