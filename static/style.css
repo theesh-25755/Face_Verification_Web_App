@@ -34,7 +34,7 @@ h1, h2, h3 { color: #1a1a1a; margin-bottom: 20px; }
     margin-bottom: 30px;
 }
 
-/* WIDER CARD (For Dashboard & Register) */
+/* Wider card (For Dashboard & Register) */
 .card-wide {
     max-width: 1000px;
 }

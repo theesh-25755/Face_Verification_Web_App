@@ -123,9 +123,9 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-# -----------------------------------------------------------
+
 # ROUTES
-# -----------------------------------------------------------
+
 
 @app.route('/')
 def index():
