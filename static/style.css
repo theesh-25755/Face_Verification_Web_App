@@ -61,17 +61,17 @@ h1, h2, h3 { color: #1a1a1a; margin-bottom: 20px; }
 .btn-secondary { background-color: #6c757d; color: white; }
 .btn-secondary:hover { background-color: #545b62; }
 
-/* FORMS */
+/* forms */
 input[type="text"], input[type="password"], input[type="email"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0 20px 0;
     border: 1px solid #ddd;
     border-radius: 6px;
-    box-sizing: border-box; /* Fixes padding issues */
+    box-sizing: border-box; 
 }
 
-/* TABLES (Dashboard) */
+/* tables dashboard */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -81,7 +81,7 @@ th { background-color: #007bff; color: white; padding: 15px; }
 td { padding: 12px; border-bottom: 1px solid #eee; }
 tr:hover { background-color: #f8f9fa; }
 
-/* VIDEO FEED */
+/* video feed */
 .video-feed {
     border-radius: 8px;
     border: 4px solid #333;

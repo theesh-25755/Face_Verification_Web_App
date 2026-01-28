@@ -86,10 +86,10 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
                         log_entry = {
                             "name": name,
                             "timestamp": datetime.now(),
-                            "subject": subject  # <--- Saving the Subject
+                            "subject": subject  # saving the Subject
                         }
 
-                        # Check if this person marked THIS subject in the last 60s
+                        # Check if this person marked this subject in the last 60 seconds
                         last_log = attendance_collection.find_one(
                             {"name": name, "subject": subject}, 
                             sort=[("timestamp", -1)]
