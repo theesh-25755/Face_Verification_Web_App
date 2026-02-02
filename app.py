@@ -111,11 +111,11 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
                 cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
                 cv2.putText(frame, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), 1)
                 
-                # Display Subject Name on Screen
+                # Display subject name on screen
                 cv2.putText(frame, f"Subject: {subject}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
 
         else:
-            # --- REGISTRATION MODE ---
+            # registration mode 
             cv2.putText(frame, "Position Face & Click Capture", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
 
         ret, buffer = cv2.imencode('.jpg', frame)
