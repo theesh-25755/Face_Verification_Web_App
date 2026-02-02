@@ -124,8 +124,8 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
                b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
 
-# ROUTES
 
+#routes
 
 @app.route('/')
 def index():
@@ -133,7 +133,7 @@ def index():
 
 @app.route('/verify_feed')
 def verify_feed():
-    # Get subject from URL (e.g., /verify_feed?subject=Python)
+    # Get subject from URL 
     subject_arg = request.args.get('subject', 'General')
     return Response(gen_frames(is_registering=False, subject=subject_arg), mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -183,10 +183,10 @@ def capture_face():
 
 @app.route('/dashboard')
 def dashboard():
-    # 1. Check if a subject filter exists
+    # Check if a subject filter exists
     subject_filter = request.args.get('subject')
     
-    # 2. Filter MongoDB Query
+    # Filter MongoDB Query
     if subject_filter:
         query = {"subject": subject_filter}
         logs = attendance_collection.find(query).sort("timestamp", -1)
