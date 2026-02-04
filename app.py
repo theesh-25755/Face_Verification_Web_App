@@ -71,7 +71,7 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
             face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
             
             for face_encoding, face_location in zip(face_encodings, face_locations):
-                matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.60)
+                matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.50)
                 name = "Unknown"
                 color = (0, 0, 255) 
 
