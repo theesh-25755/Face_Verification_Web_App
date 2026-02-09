@@ -63,7 +63,7 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
             break
             
         if not is_registering:
-            # --- VERIFICATION MODE ---
+            # verification mode
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
             rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
             
