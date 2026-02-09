@@ -41,6 +41,7 @@ def load_known_faces():
         img = cv2.imread(filepath)
         if img is None: continue
         
+        # manually converting BGR colors to RGB
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         try:
             encoding = face_recognition.face_encodings(img)[0]
@@ -63,7 +64,7 @@ def gen_frames(is_registering=False, new_name="", subject="General"):
             break
             
         if not is_registering:
-            # verification mode
+            # verification mode,manually resizing the image
             small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
             rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
             
